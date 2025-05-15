@@ -1,10 +1,12 @@
-
-import React from 'react';
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import Icon from '@/components/ui/icon';
+import Icon from "@/components/ui/icon";
+import AuthDialog from "./AuthDialog";
 
 const Header = () => {
+  const [authDialogOpen, setAuthDialogOpen] = useState(false);
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
@@ -33,11 +35,17 @@ const Header = () => {
 
         {/* Навигация и кнопки */}
         <nav className="flex items-center gap-2">
-          <a href="#" className="hidden md:flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors">
+          <a
+            href="#"
+            className="hidden md:flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
+          >
             <Icon name="Tag" className="h-4 w-4" />
             <span>Акции</span>
           </a>
-          <a href="#" className="hidden md:flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors">
+          <a
+            href="#"
+            className="hidden md:flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
+          >
             <Icon name="Heart" className="h-4 w-4" />
             <span>Избранное</span>
           </a>
@@ -49,12 +57,19 @@ const Header = () => {
             <Icon name="User" className="h-5 w-5" />
             <span className="sr-only">Профиль</span>
           </Button>
-          <Button size="sm" className="hidden md:flex">
+          <Button
+            size="sm"
+            className="hidden md:flex"
+            onClick={() => setAuthDialogOpen(true)}
+          >
             <Icon name="LogIn" className="mr-2 h-4 w-4" />
             Войти
           </Button>
         </nav>
       </div>
+
+      {/* Модальное окно авторизации */}
+      <AuthDialog open={authDialogOpen} onOpenChange={setAuthDialogOpen} />
     </header>
   );
 };
